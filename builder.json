@@ -1,0 +1,14 @@
+{
+  "project": "alarma ios",
+  "platform": "ios",
+  "github": {
+    "owner": "fllapp",
+    "repo": "alarma"
+  },
+  "ios": {},
+  "flutter": {
+    "watch": {}
+  },
+  "reactNative": {},
+  "mobai": {}
+}
