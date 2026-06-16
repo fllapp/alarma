@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000001 /* AlarmaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000001 /* AlarmaApp.swift */; };
+		100000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000002 /* ContentView.swift */; };
+		100000000000000000000003 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000003 /* Alarm.swift */; };
+		100000000000000000000004 /* AlarmSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000004 /* AlarmSound.swift */; };
+		100000000000000000000005 /* MathProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000005 /* MathProblem.swift */; };
+		100000000000000000000006 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000006 /* AlarmManager.swift */; };
+		100000000000000000000007 /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000007 /* AlarmListView.swift */; };
+		100000000000000000000008 /* AlarmDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000008 /* AlarmDetailView.swift */; };
+		100000000000000000000009 /* DaySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000009 /* DaySelectorView.swift */; };
+		10000000000000000000000A /* AlarmActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000A /* AlarmActiveView.swift */; };
+		10000000000000000000000B /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000B /* SoundPickerView.swift */; };
+		10000000000000000000000C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000C /* NotificationService.swift */; };
+		10000000000000000000000D /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000D /* AudioService.swift */; };
+		10000000000000000000000E /* MathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000E /* MathService.swift */; };
+		10000000000000000000000F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000F /* PersistenceService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		200000000000000000000001 /* AlarmaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmaApp.swift; sourceTree = "<group>"; };
+		200000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		200000000000000000000003 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
+		200000000000000000000004 /* AlarmSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSound.swift; sourceTree = "<group>"; };
+		200000000000000000000005 /* MathProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathProblem.swift; sourceTree = "<group>"; };
+		200000000000000000000006 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
+		200000000000000000000007 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
+		200000000000000000000008 /* AlarmDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDetailView.swift; sourceTree = "<group>"; };
+		200000000000000000000009 /* DaySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorView.swift; sourceTree = "<group>"; };
+		20000000000000000000000A /* AlarmActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmActiveView.swift; sourceTree = "<group>"; };
+		20000000000000000000000B /* SoundPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
+		20000000000000000000000C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		20000000000000000000000D /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		20000000000000000000000E /* MathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathService.swift; sourceTree = "<group>"; };
+		20000000000000000000000F /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		200000000000000000000010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		200000000000000000000011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		300000000000000000000001 /* Alarma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarma.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		500000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		400000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				400000000000000000000002 /* Alarma */,
+				400000000000000000000008 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		400000000000000000000002 /* Alarma */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000001 /* AlarmaApp.swift */,
+				200000000000000000000002 /* ContentView.swift */,
+				400000000000000000000003 /* Models */,
+				400000000000000000000004 /* ViewModels */,
+				400000000000000000000005 /* Views */,
+				400000000000000000000006 /* Services */,
+				400000000000000000000007 /* Resources */,
+				200000000000000000000010 /* Info.plist */,
+			);
+			path = Alarma;
+			sourceTree = "<group>";
+		};
+		400000000000000000000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000003 /* Alarm.swift */,
+				200000000000000000000004 /* AlarmSound.swift */,
+				200000000000000000000005 /* MathProblem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		400000000000000000000004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000006 /* AlarmManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		400000000000000000000005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000007 /* AlarmListView.swift */,
+				200000000000000000000008 /* AlarmDetailView.swift */,
+				200000000000000000000009 /* DaySelectorView.swift */,
+				20000000000000000000000A /* AlarmActiveView.swift */,
+				20000000000000000000000B /* SoundPickerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		400000000000000000000006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				20000000000000000000000C /* NotificationService.swift */,
+				20000000000000000000000D /* AudioService.swift */,
+				20000000000000000000000E /* MathService.swift */,
+				20000000000000000000000F /* PersistenceService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		400000000000000000000007 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000011 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		400000000000000000000008 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				300000000000000000000001 /* Alarma.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		600000000000000000000001 /* Alarma */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 800000000000000000000006 /* Build configuration list for PBXNativeTarget "Alarma" */;
+			buildPhases = (
+				700000000000000000000001 /* Sources */,
+				500000000000000000000001 /* Frameworks */,
+				700000000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alarma;
+			productName = Alarma;
+			productReference = 300000000000000000000001 /* Alarma.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		900000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					600000000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 800000000000000000000005 /* Build configuration list for PBXProject "Alarma" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "es-ES";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				es,
+				Base,
+			);
+			mainGroup = 400000000000000000000001;
+			productRefGroup = 400000000000000000000008 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				600000000000000000000001 /* Alarma */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		700000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		700000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000001 /* AlarmaApp.swift in Sources */,
+				100000000000000000000002 /* ContentView.swift in Sources */,
+				100000000000000000000003 /* Alarm.swift in Sources */,
+				100000000000000000000004 /* AlarmSound.swift in Sources */,
+				100000000000000000000005 /* MathProblem.swift in Sources */,
+				100000000000000000000006 /* AlarmManager.swift in Sources */,
+				100000000000000000000007 /* AlarmListView.swift in Sources */,
+				100000000000000000000008 /* AlarmDetailView.swift in Sources */,
+				100000000000000000000009 /* DaySelectorView.swift in Sources */,
+				10000000000000000000000A /* AlarmActiveView.swift in Sources */,
+				10000000000000000000000B /* SoundPickerView.swift in Sources */,
+				10000000000000000000000C /* NotificationService.swift in Sources */,
+				10000000000000000000000D /* AudioService.swift in Sources */,
+				10000000000000000000000E /* MathService.swift in Sources */,
+				10000000000000000000000F /* PersistenceService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		800000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		800000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		800000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Alarma/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alarma;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alarma.app;
+				PRODUCT_NAME = Alarma;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		800000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Alarma/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alarma;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alarma.app;
+				PRODUCT_NAME = Alarma;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		800000000000000000000005 /* Build configuration list for PBXProject "Alarma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				800000000000000000000001 /* Debug */,
+				800000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		800000000000000000000006 /* Build configuration list for PBXNativeTarget "Alarma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				800000000000000000000003 /* Debug */,
+				800000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 900000000000000000000001 /* Project object */;
+}
