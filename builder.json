@@ -1,14 +1,13 @@
 {
-  "project": "alarma ios",
+  "project": "Alarma",
   "platform": "ios",
   "github": {
     "owner": "fllapp",
     "repo": "alarma"
   },
-  "ios": {},
-  "flutter": {
-    "watch": {}
-  },
-  "reactNative": {},
-  "mobai": {}
+  "ios": {
+    "path": ".",
+    "scheme": "Alarma",
+    "signing": false
+  }
 }
