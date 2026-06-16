@@ -22,26 +22,28 @@
 		10000000000000000000000D /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000D /* AudioService.swift */; };
 		10000000000000000000000E /* MathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000E /* MathService.swift */; };
 		10000000000000000000000F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000000000000000000000F /* PersistenceService.swift */; };
+		100000000000000000000010 /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000010 /* AppStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		200000000000000000000001 /* AlarmaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmaApp.swift; sourceTree = "<group>"; };
-		200000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		200000000000000000000003 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
-		200000000000000000000004 /* AlarmSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSound.swift; sourceTree = "<group>"; };
-		200000000000000000000005 /* MathProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathProblem.swift; sourceTree = "<group>"; };
-		200000000000000000000006 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
-		200000000000000000000007 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
-		200000000000000000000008 /* AlarmDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmDetailView.swift; sourceTree = "<group>"; };
-		200000000000000000000009 /* DaySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectorView.swift; sourceTree = "<group>"; };
-		20000000000000000000000A /* AlarmActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmActiveView.swift; sourceTree = "<group>"; };
-		20000000000000000000000B /* SoundPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
-		20000000000000000000000C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		20000000000000000000000D /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
-		20000000000000000000000E /* MathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathService.swift; sourceTree = "<group>"; };
-		20000000000000000000000F /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
-		200000000000000000000010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		200000000000000000000011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		200000000000000000000001 /* AlarmaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmaApp.swift"; sourceTree = "<group>"; };
+		200000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView.swift"; sourceTree = "<group>"; };
+		200000000000000000000003 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alarm.swift"; sourceTree = "<group>"; };
+		200000000000000000000004 /* AlarmSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmSound.swift"; sourceTree = "<group>"; };
+		200000000000000000000005 /* MathProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MathProblem.swift"; sourceTree = "<group>"; };
+		200000000000000000000006 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmManager.swift"; sourceTree = "<group>"; };
+		200000000000000000000007 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmListView.swift"; sourceTree = "<group>"; };
+		200000000000000000000008 /* AlarmDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmDetailView.swift"; sourceTree = "<group>"; };
+		200000000000000000000009 /* DaySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DaySelectorView.swift"; sourceTree = "<group>"; };
+		20000000000000000000000A /* AlarmActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmActiveView.swift"; sourceTree = "<group>"; };
+		20000000000000000000000B /* SoundPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoundPickerView.swift"; sourceTree = "<group>"; };
+		20000000000000000000000C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService.swift"; sourceTree = "<group>"; };
+		20000000000000000000000D /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioService.swift"; sourceTree = "<group>"; };
+		20000000000000000000000E /* MathService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MathService.swift"; sourceTree = "<group>"; };
+		20000000000000000000000F /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceService.swift"; sourceTree = "<group>"; };
+		200000000000000000000010 /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStyles.swift"; sourceTree = "<group>"; };
+		200000000000000000000011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		200000000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 		300000000000000000000001 /* Alarma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -74,7 +76,7 @@
 				400000000000000000000005 /* Views */,
 				400000000000000000000006 /* Services */,
 				400000000000000000000007 /* Resources */,
-				200000000000000000000010 /* Info.plist */,
+				200000000000000000000011 /* Info.plist */,
 			);
 			path = Alarma;
 			sourceTree = "<group>";
@@ -123,7 +125,8 @@
 		400000000000000000000007 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				200000000000000000000011 /* Assets.xcassets */,
+				200000000000000000000010 /* AppStyles.swift */,
+				200000000000000000000012 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -195,6 +198,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100000000000000000000011 /* Info.plist in Resources */,
+				100000000000000000000012 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +225,7 @@
 				10000000000000000000000D /* AudioService.swift in Sources */,
 				10000000000000000000000E /* MathService.swift in Sources */,
 				10000000000000000000000F /* PersistenceService.swift in Sources */,
+				100000000000000000000010 /* AppStyles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
