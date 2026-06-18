@@ -298,13 +298,13 @@ jobs:
               exit 1
             fi
             echo "Found app at: $APP_PATH"
-            cd ..
-            mkdir -p build/Payload
-            cp -R "$APP_PATH" build/Payload/
-            cd build
+            OUTPUT_DIR="${GITHUB_WORKSPACE}/build"
+            mkdir -p "${OUTPUT_DIR}/Payload"
+            cp -R "$APP_PATH" "${OUTPUT_DIR}/Payload/"
+            cd "${OUTPUT_DIR}"
             zip -rq "$BUILD_ID.ipa" Payload
             rm -rf Payload
-            echo "Created unsigned IPA: build/$BUILD_ID.ipa"
+            echo "Created unsigned IPA: ${OUTPUT_DIR}/${BUILD_ID}.ipa"
           fi
 
       - name: Upload IPA artifact
