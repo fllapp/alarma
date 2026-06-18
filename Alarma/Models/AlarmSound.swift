@@ -1,18 +1,20 @@
 import Foundation
 
-struct AlarmSound: Identifiable, Equatable {
+struct AlarmSound: Identifiable, Equatable, Codable {
     let id: String
     let name: String
-    let systemSoundID: UInt32
+    let fileName: String?
     let category: SoundCategory
+    var isCustom: Bool { fileName == nil }
 
-    enum SoundCategory: String, CaseIterable {
+    enum SoundCategory: String, CaseIterable, Codable {
         case classics = "Clasicos"
         case ambient = "Ambientes"
         case strong = "Fuertes"
         case melodies = "Melodias"
         case nature = "Naturaleza"
         case tech = "Tecnologia"
+        case custom = "Mis sonidos"
 
         var icon: String {
             switch self {
@@ -22,31 +24,56 @@ struct AlarmSound: Identifiable, Equatable {
             case .melodies: return "music.quarternote.3"
             case .nature: return "leaf"
             case .tech: return "gearshape.2"
+            case .custom: return "music.mic"
             }
         }
     }
 
     static let allSounds: [AlarmSound] = [
-        AlarmSound(id: "marimba", name: "Marimba", systemSoundID: 1006, category: .classics),
-        AlarmSound(id: "alarm", name: "Alarma clasica", systemSoundID: 1007, category: .classics),
-        AlarmSound(id: "bell", name: "Campana", systemSoundID: 1008, category: .classics),
-        AlarmSound(id: "chime", name: "Carillon", systemSoundID: 1009, category: .classics),
-        AlarmSound(id: "digital", name: "Digital", systemSoundID: 1010, category: .tech),
-        AlarmSound(id: "radar", name: "Radar", systemSoundID: 1011, category: .tech),
-        AlarmSound(id: "xylophone", name: "Xilofono", systemSoundID: 1012, category: .classics),
-        AlarmSound(id: "bells", name: "Cascabeles", systemSoundID: 1013, category: .ambient),
-        AlarmSound(id: "horn", name: "Bocina", systemSoundID: 1014, category: .strong),
-        AlarmSound(id: "siren", name: "Sirena", systemSoundID: 1015, category: .strong),
+        AlarmSound(id: "alarma_clasica", name: "Alarma clasica", fileName: "alarma_clasica", category: .classics),
+        AlarmSound(id: "timbre_antiguo", name: "Timbre antiguo", fileName: "timbre_antiguo", category: .classics),
+        AlarmSound(id: "campana", name: "Campana", fileName: "campana", category: .classics),
+        AlarmSound(id: "carillon", name: "Carillon", fileName: "carillon", category: .classics),
+        AlarmSound(id: "despertador", name: "Despertador", fileName: "despertador", category: .classics),
+        AlarmSound(id: "pulso", name: "Pulso", fileName: "pulso", category: .classics),
 
-        AlarmSound(id: "dawn", name: "Amanecer", systemSoundID: 1000, category: .nature),
-        AlarmSound(id: "gentle", name: "Suave", systemSoundID: 1001, category: .ambient),
-        AlarmSound(id: "wake", name: "Despertar", systemSoundID: 1002, category: .ambient),
-        AlarmSound(id: "sunrise", name: "Sol naciente", systemSoundID: 1003, category: .nature),
-        AlarmSound(id: "breeze", name: "Brisa", systemSoundID: 1004, category: .nature),
-        AlarmSound(id: "spring", name: "Primavera", systemSoundID: 1005, category: .nature),
+        AlarmSound(id: "bosque", name: "Bosque", fileName: "bosque", category: .ambient),
+        AlarmSound(id: "lluvia", name: "Lluvia", fileName: "lluvia", category: .ambient),
+        AlarmSound(id: "olas", name: "Olas", fileName: "olas", category: .ambient),
+        AlarmSound(id: "brisa", name: "Brisa", fileName: "brisa", category: .ambient),
+        AlarmSound(id: "murmullo", name: "Murmullo", fileName: "murmullo", category: .ambient),
+
+        AlarmSound(id: "emergencia", name: "Emergencia", fileName: "emergencia", category: .strong),
+        AlarmSound(id: "sirena", name: "Sirena", fileName: "sirena", category: .strong),
+        AlarmSound(id: "alarma_fuerte", name: "Alarma fuerte", fileName: "alarma_fuerte", category: .strong),
+        AlarmSound(id: "bocina", name: "Bocina", fileName: "bocina", category: .strong),
+        AlarmSound(id: "martillo", name: "Martillo", fileName: "martillo", category: .strong),
+        AlarmSound(id: "alarma_max", name: "Alarma max", fileName: "alarma_max", category: .strong),
+
+        AlarmSound(id: "melodia", name: "Melodia", fileName: "melodia", category: .melodies),
+        AlarmSound(id: "tono_suave", name: "Tono suave", fileName: "tono_suave", category: .melodies),
+        AlarmSound(id: "piano", name: "Piano", fileName: "piano", category: .melodies),
+        AlarmSound(id: "arpa", name: "Arpa", fileName: "arpa", category: .melodies),
+        AlarmSound(id: "alegre", name: "Alegre", fileName: "alegre", category: .melodies),
+
+        AlarmSound(id: "amanecer", name: "Amanecer", fileName: "amanecer", category: .nature),
+        AlarmSound(id: "sol_naciente", name: "Sol naciente", fileName: "sol_naciente", category: .nature),
+        AlarmSound(id: "naturaleza", name: "Naturaleza", fileName: "naturaleza", category: .nature),
+        AlarmSound(id: "rio", name: "Rio", fileName: "rio", category: .nature),
+        AlarmSound(id: "viento", name: "Viento", fileName: "viento", category: .nature),
+
+        AlarmSound(id: "digital_1", name: "Digital", fileName: "digital_1", category: .tech),
+        AlarmSound(id: "radar", name: "Radar", fileName: "radar", category: .tech),
+        AlarmSound(id: "laser", name: "Laser", fileName: "laser", category: .tech),
+        AlarmSound(id: "sensor", name: "Sensor", fileName: "sensor", category: .tech),
+        AlarmSound(id: "codigo", name: "Codigo", fileName: "codigo", category: .tech),
     ]
 
     static func sounds(for category: SoundCategory) -> [AlarmSound] {
         allSounds.filter { $0.category == category }
+    }
+
+    static func sound(id: String) -> AlarmSound? {
+        allSounds.first { $0.id == id }
     }
 }

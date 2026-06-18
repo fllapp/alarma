@@ -5,25 +5,26 @@ import UIKit
 final class AudioService {
     static let shared = AudioService()
     private var player: AVAudioPlayer?
+    private var previewPlayer: AVAudioPlayer?
     private var vibrationTimer: Timer?
     private var gradualTimer: Timer?
-    private var gradualPlayCount = 0
-    private var lastGradualPlay = Date()
     private var isAlarmPlaying = false
 
-    private init() {
-        setupPlayer()
-    }
+    private init() {}
 
-    private func setupPlayer() {
-        guard let url = Bundle.main.url(forResource: "alarm_tone", withExtension: "wav") else { return }
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.numberOfLoops = -1
-            player?.prepareToPlay()
-        } catch {
-            print("Audio player setup error: \(error)")
+    private func urlForSound(_ soundName: String) -> URL? {
+        if let builtIn = AlarmSound.allSounds.first(where: { $0.id == soundName }), let fn = builtIn.fileName {
+            return Bundle.main.url(forResource: fn, withExtension: "wav", subdirectory: "Sounds")
         }
+        let customDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("CustomSounds", isDirectory: true)
+        let url = customDir.appendingPathComponent(soundName)
+        if FileManager.default.fileExists(atPath: url.path) { return url }
+        for ext in ["mp3", "wav", "m4a", "caf"] {
+            let alt = customDir.appendingPathComponent("\(soundName).\(ext)")
+            if FileManager.default.fileExists(atPath: alt.path) { return alt }
+        }
+        return Bundle.main.url(forResource: "alarma_clasica", withExtension: "wav", subdirectory: "Sounds")
     }
 
     func setupAudioSession() {
@@ -36,17 +37,34 @@ final class AudioService {
         }
     }
 
-    func playPreview(_ soundID: UInt32) {
-        AudioServicesPlaySystemSound(soundID)
+    func playPreview(_ soundID: UInt32) {}
+
+    func playPreviewSound(_ soundName: String) {
+        guard let url = urlForSound(soundName) else { return }
+        previewPlayer?.stop()
+        do {
+            previewPlayer = try AVAudioPlayer(contentsOf: url)
+            previewPlayer?.volume = 0.7
+            previewPlayer?.play()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                self?.previewPlayer?.stop()
+            }
+        } catch {}
     }
 
     func playSound(_ soundName: String) {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
-        player?.currentTime = 0
-        player?.volume = 1.0
-        player?.play()
+        guard let url = urlForSound(soundName) else { return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = -1
+            player?.volume = 1.0
+            player?.play()
+        } catch {
+            print("playSound error: \(error)")
+        }
     }
 
     func playSoundGradual(_ soundName: String, durationMinutes: Int) {
@@ -57,10 +75,14 @@ final class AudioService {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
+        guard let url = urlForSound(soundName) else { return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = -1
+        } catch { return }
 
         let totalDuration = TimeInterval(durationMinutes * 60)
         let startTime = Date()
-
         player?.currentTime = 0
         player?.volume = 0.05
         player?.play()
@@ -81,9 +103,13 @@ final class AudioService {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
-        player?.currentTime = 0
-        player?.volume = 1.0
-        player?.play()
+        guard let url = urlForSound(soundName) else { return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = -1
+            player?.volume = 1.0
+            player?.play()
+        } catch {}
 
         vibrationTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
@@ -93,7 +119,9 @@ final class AudioService {
     func stopAll() {
         isAlarmPlaying = false
         player?.stop()
-        player?.currentTime = 0
+        player = nil
+        previewPlayer?.stop()
+        previewPlayer = nil
         vibrationTimer?.invalidate()
         vibrationTimer = nil
         gradualTimer?.invalidate()

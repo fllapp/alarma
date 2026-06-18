@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import AVFoundation
+import UniformTypeIdentifiers
 
 final class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
@@ -13,16 +14,71 @@ final class AlarmManager: ObservableObject {
     @Published var currentMathProblem: MathProblem?
     @Published var isUltimatum = false
     @Published var snoozeCount: [UUID: Int] = [:]
+    @Published var customSounds: [AlarmSound] = []
 
     private let notificationService = NotificationService.shared
     private let audioService = AudioService.shared
     private var backgroundTimer: Timer?
+    private let customSoundsKey = "customSounds"
 
     private init() {
         loadAlarms()
+        loadCustomSounds()
         notificationService.setupNotificationCategories()
         checkPendingAlarms()
         startBackgroundTimer()
+    }
+
+    func importCustomSound(from url: URL) {
+        let fm = FileManager.default
+        let docs = fm.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let customDir = docs.appendingPathComponent("CustomSounds", isDirectory: true)
+        try? fm.createDirectory(at: customDir, withIntermediateDirectories: true)
+
+        let filename = url.lastPathComponent
+        let dest = customDir.appendingPathComponent(filename)
+
+        if fm.fileExists(atPath: dest.path) { return }
+        do {
+            try fm.copyItem(at: url, to: dest)
+            let name = (filename as NSString).deletingPathExtension
+            let soundId = "custom_\(name)"
+            let sound = AlarmSound(id: soundId, name: name, fileName: nil, category: .custom)
+            if !customSounds.contains(where: { $0.id == soundId }) {
+                customSounds.append(sound)
+                saveCustomSounds()
+            }
+        } catch {
+            print("Import error: \(error)")
+        }
+    }
+
+    func deleteCustomSound(_ sound: AlarmSound) {
+        let fm = FileManager.default
+        let docs = fm.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let customDir = docs.appendingPathComponent("CustomSounds", isDirectory: true)
+
+        for ext in ["mp3", "wav", "m4a", "caf"] {
+            let file = customDir.appendingPathComponent("\(sound.name).\(ext)")
+            if fm.fileExists(atPath: file.path) {
+                try? fm.removeItem(at: file)
+                break
+            }
+        }
+
+        customSounds.removeAll { $0.id == sound.id }
+        saveCustomSounds()
+    }
+
+    private func loadCustomSounds() {
+        guard let data = UserDefaults.standard.data(forKey: customSoundsKey) else { return }
+        customSounds = (try? JSONDecoder().decode([AlarmSound].self, from: data)) ?? []
+    }
+
+    private func saveCustomSounds() {
+        if let data = try? JSONEncoder().encode(customSounds) {
+            UserDefaults.standard.set(data, forKey: customSoundsKey)
+        }
     }
 
     func requestNotificationPermission() {

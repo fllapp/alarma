@@ -6,6 +6,12 @@ struct AlarmDetailView: View {
 
     let editAlarm: Alarm?
     @State private var title: String
+
+    private func soundName(for id: String) -> String {
+        AlarmSound.allSounds.first(where: { $0.id == id })?.name
+        ?? AlarmManager.shared.customSounds.first(where: { $0.id == id })?.name
+        ?? "Seleccionar"
+    }
     @State private var hour: Int
     @State private var minute: Int
     @State private var daysOfWeek: Set<Int>
@@ -75,7 +81,7 @@ struct AlarmDetailView: View {
                 Section(header: Label("Sonido", systemImage: "music.note")) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(AlarmSound.allSounds.first(where: { $0.id == selectedSound })?.name ?? "Seleccionar")
+                            Text(soundName(for: selectedSound))
                                 .foregroundColor(.white)
                         }
                         Spacer()
@@ -111,7 +117,7 @@ struct AlarmDetailView: View {
                         HStack {
                             Text("Sonido final")
                             Spacer()
-                            Text(AlarmSound.allSounds.first(where: { $0.id == ultimatumSound })?.name ?? "Seleccionar")
+                            Text(soundName(for: ultimatumSound))
                                 .foregroundColor(.secondary)
                             Button("Cambiar") { showUltimatumSoundPicker = true }
                                 .font(.subheadline)
