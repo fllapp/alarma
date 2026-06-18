@@ -18,22 +18,27 @@ struct SoundPickerView: View {
                         .foregroundColor(AppColors.accentBlue)
                     ) {
                         ForEach(AlarmSound.sounds(for: category)) { sound in
-                            Button {
-                                selectedSound = sound.id
-                                AudioServicesPlaySystemSound(sound.systemSoundID)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    dismiss()
+                            HStack {
+                                Button {
+                                    selectedSound = sound.id
+                                } label: {
+                                    HStack {
+                                        Image(systemName: selectedSound == sound.id ? "checkmark.circle.fill" : "circle")
+                                            .foregroundColor(selectedSound == sound.id ? .blue : .gray)
+                                        Text(sound.name)
+                                            .foregroundColor(.white)
+                                        Spacer()
+                                    }
                                 }
-                            } label: {
-                                HStack {
-                                    Image(systemName: selectedSound == sound.id ? "checkmark.circle.fill" : "circle")
-                                        .foregroundColor(selectedSound == sound.id ? .blue : .gray)
-                                    Text(sound.name)
-                                        .foregroundColor(.white)
-                                    Spacer()
+
+                                Button {
+                                    AudioService.shared.playPreview(sound.systemSoundID)
+                                } label: {
                                     Image(systemName: "play.circle")
+                                        .font(.title3)
                                         .foregroundColor(.gray)
                                 }
+                                .buttonStyle(.borderless)
                             }
                         }
                     }

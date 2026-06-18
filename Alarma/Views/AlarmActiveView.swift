@@ -74,10 +74,13 @@ struct AlarmActiveView: View {
                                 .foregroundColor(AppColors.textSecondary)
 
                             Text(problem.question)
-                                .font(AppFonts.timeFont(size: 48))
+                                .font(.system(size: 40, weight: .light, design: .monospaced))
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
                                 .foregroundColor(.white)
                                 .padding(.vertical, 30)
-                                .padding(.horizontal, 40)
+                                .padding(.horizontal, 20)
+                                .frame(maxWidth: .infinity)
                                 .background(
                                     RoundedRectangle(cornerRadius: 30)
                                         .fill(AppColors.cardBackground)
