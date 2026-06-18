@@ -24,7 +24,7 @@ final class AudioService {
             let alt = customDir.appendingPathComponent("\(soundName).\(ext)")
             if FileManager.default.fileExists(atPath: alt.path) { return alt }
         }
-        return Bundle.main.url(forResource: "alarma_clasica", withExtension: "wav", subdirectory: "Sounds")
+        return Bundle.main.url(forResource: "amanecer", withExtension: "wav", subdirectory: "Sounds")
     }
 
     func setupAudioSession() {

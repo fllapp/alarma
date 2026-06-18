@@ -112,13 +112,13 @@ struct AlarmRowView: View {
                     }
                 }
 
-                HStack {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(alarm.title)
                         .font(.subheadline.bold())
                         .foregroundColor(alarm.isEnabled ? .white.opacity(0.9) : .gray)
 
                     if !alarm.daysOfWeek.isEmpty {
-                        Text("* \(alarm.dayNames)")
+                        Text(alarm.dayNames)
                             .font(.caption)
                             .foregroundColor(alarm.isEnabled ? .gray : .gray.opacity(0.5))
                     }

@@ -76,7 +76,6 @@ struct AlarmActiveView: View {
                             Text(problem.question)
                                 .font(.system(size: 40, weight: .light, design: .monospaced))
                                 .minimumScaleFactor(0.5)
-                                .lineLimit(1)
                                 .foregroundColor(.white)
                                 .padding(.vertical, 30)
                                 .padding(.horizontal, 20)

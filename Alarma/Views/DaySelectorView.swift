@@ -18,7 +18,9 @@ struct DaySelectorView: View {
                 } label: {
                     Text(name)
                         .font(.system(size: 13, weight: .medium))
-                        .frame(width: 38, height: 36)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 8)
+                        .frame(minWidth: 38, minHeight: 36)
                         .background(days.contains(num) ? Color.blue : Color.gray.opacity(0.2))
                         .foregroundColor(days.contains(num) ? .white : .white.opacity(0.7))
                         .cornerRadius(18)
