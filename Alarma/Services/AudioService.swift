@@ -4,14 +4,27 @@ import UIKit
 
 final class AudioService {
     static let shared = AudioService()
+    private var player: AVAudioPlayer?
     private var vibrationTimer: Timer?
     private var gradualTimer: Timer?
     private var gradualPlayCount = 0
     private var lastGradualPlay = Date()
     private var isAlarmPlaying = false
-    private var playbackTimer: Timer?
 
-    private init() {}
+    private init() {
+        setupPlayer()
+    }
+
+    private func setupPlayer() {
+        guard let url = Bundle.main.url(forResource: "alarm_tone", withExtension: "wav") else { return }
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = -1
+            player?.prepareToPlay()
+        } catch {
+            print("Audio player setup error: \(error)")
+        }
+    }
 
     func setupAudioSession() {
         do {
@@ -31,16 +44,9 @@ final class AudioService {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
-        guard let sound = AlarmSound.allSounds.first(where: { $0.id == soundName }) else { return }
-        playWithLoop(soundID: sound.systemSoundID)
-    }
-
-    private func playWithLoop(soundID: UInt32) {
-        guard isAlarmPlaying else { return }
-        AudioServicesPlaySystemSound(soundID)
-        playbackTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
-            self?.playWithLoop(soundID: soundID)
-        }
+        player?.currentTime = 0
+        player?.volume = 1.0
+        player?.play()
     }
 
     func playSoundGradual(_ soundName: String, durationMinutes: Int) {
@@ -51,28 +57,22 @@ final class AudioService {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
-        guard let sound = AlarmSound.allSounds.first(where: { $0.id == soundName }) else { return }
 
         let totalDuration = TimeInterval(durationMinutes * 60)
         let startTime = Date()
-        gradualPlayCount = 0
-        lastGradualPlay = Date()
+
+        player?.currentTime = 0
+        player?.volume = 0.05
+        player?.play()
 
         gradualTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
             guard let self = self, self.isAlarmPlaying else { return }
             let elapsed = Date().timeIntervalSince(startTime)
             let progress = min(elapsed / totalDuration, 1.0)
-            let pauseInterval = max(1.0, 10.0 * (1.0 - progress))
-            let now = Date()
-            if now.timeIntervalSince(self.lastGradualPlay) >= pauseInterval {
-                AudioServicesPlaySystemSound(sound.systemSoundID)
-                self.lastGradualPlay = now
-                self.gradualPlayCount += 1
-            }
+            self.player?.volume = Float(0.05 + 0.95 * progress)
             if progress >= 1.0 {
                 timer.invalidate()
                 self.gradualTimer = nil
-                self.playWithLoop(soundID: sound.systemSoundID)
             }
         }
     }
@@ -81,8 +81,9 @@ final class AudioService {
         stopAll()
         setupAudioSession()
         isAlarmPlaying = true
-        let soundID: UInt32 = AlarmSound.allSounds.first(where: { $0.id == soundName })?.systemSoundID ?? 1007
-        playWithLoop(soundID: soundID)
+        player?.currentTime = 0
+        player?.volume = 1.0
+        player?.play()
 
         vibrationTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
@@ -91,11 +92,11 @@ final class AudioService {
 
     func stopAll() {
         isAlarmPlaying = false
+        player?.stop()
+        player?.currentTime = 0
         vibrationTimer?.invalidate()
         vibrationTimer = nil
         gradualTimer?.invalidate()
         gradualTimer = nil
-        playbackTimer?.invalidate()
-        playbackTimer = nil
     }
 }

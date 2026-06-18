@@ -23,6 +23,7 @@
 		00000000000000000000000E /* MathService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000001000E /* MathService.swift */; };
 		00000000000000000000000F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000001000F /* PersistenceService.swift */; };
 		000000000000000000000010 /* AppStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000010010 /* AppStyles.swift */; };
+		000000000000000000000011 /* alarm_tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000010013 /* alarm_tone.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		000000000000000000010010 /* AppStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyles.swift; sourceTree = "<group>"; };
 		000000000000000000010011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		000000000000000000010012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		000000000000000000010013 /* alarm_tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm_tone.wav; sourceTree = "<group>"; };
 		000000000000000000020001 /* Alarma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000010010 /* AppStyles.swift */,
+				000000000000000000010013 /* alarm_tone.wav */,
 				000000000000000000010012 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -198,9 +201,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				000000000000000000000011 /* alarm_tone.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
