@@ -83,15 +83,17 @@ final class AlarmManager: ObservableObject {
                 let count = self.snoozeCount[alarm.id] ?? 0
                 if count >= alarm.maxSnoozes {
                     self.isUltimatum = true
-                    self.audioService.playUltimatumSound(alarm.ultimatumSoundName)
+                    let config = AlarmSound.allSounds.first(where: { $0.id == alarm.ultimatumSoundName })?.toneConfig ?? ToneConfig(frequencies: [800], pattern: .siren, cadence: 1.0)
+                    self.audioService.playUltimatumSound(toneConfig: config)
                     return
                 }
             }
 
+            let config = AlarmSound.allSounds.first(where: { $0.id == alarm.soundName })?.toneConfig ?? ToneConfig(frequencies: [800], pattern: .continuous, cadence: 0)
             if alarm.gradualWakeUpDuration > 0 {
-                self.audioService.playSoundGradual(alarm.soundName, durationMinutes: alarm.gradualWakeUpDuration)
+                self.audioService.playSoundGradual(toneConfig: config, durationMinutes: alarm.gradualWakeUpDuration)
             } else {
-                self.audioService.playSound(alarm.soundName)
+                self.audioService.playAlarm(toneConfig: config)
             }
         }
     }
@@ -122,7 +124,8 @@ final class AlarmManager: ObservableObject {
                 currentMathProblem = MathService.shared.generateProblem(difficulty: target.mathDifficulty)
             }
             showAlarmView = true
-            audioService.playUltimatumSound(target.ultimatumSoundName)
+            let config = AlarmSound.allSounds.first(where: { $0.id == target.ultimatumSoundName })?.toneConfig ?? ToneConfig(frequencies: [800], pattern: .siren, cadence: 1.0)
+            audioService.playUltimatumSound(toneConfig: config)
             return
         }
 
