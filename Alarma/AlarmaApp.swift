@@ -1,6 +1,4 @@
 import SwiftUI
-import UIKit
-import UserNotifications
 
 @main
 struct AlarmaApp: App {
@@ -21,13 +19,5 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         AlarmManager.shared.requestNotificationPermission()
         AlarmManager.shared.setupAudioSession()
         return true
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        AlarmManager.shared.setupAudioSession()
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        AlarmManager.shared.checkPendingAlarms()
     }
 }

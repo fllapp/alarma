@@ -59,10 +59,10 @@ struct Alarm: Identifiable, Codable, Equatable {
     }
 
     var dayNames: String {
-        let names = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
-        if daysOfWeek.count == 7 { return "Todos los días" }
+        let names = ["dom", "lun", "mar", "mie", "jue", "vie", "sab"]
+        if daysOfWeek.count == 7 { return "Todos los dias" }
         if daysOfWeek == Set([1, 7]) { return "Fines de semana" }
-        if daysOfWeek == Set([2, 3, 4, 5, 6]) { return "Días de semana" }
+        if daysOfWeek == Set([2, 3, 4, 5, 6]) { return "Dias de semana" }
         return daysOfWeek.sorted().map { names[$0 - 1] }.joined(separator: " ")
     }
 
@@ -70,8 +70,8 @@ struct Alarm: Identifiable, Codable, Equatable {
         let cal = Calendar.current
         let now = Date()
         let todayComponents = cal.dateComponents([.year, .month, .day], from: now)
-        var checkDate = cal.date(from: todayComponents)!
-        checkDate = cal.date(bySettingHour: hour, minute: minute, second: 0, of: checkDate)!
+        guard var checkDate = cal.date(from: todayComponents) else { return nil }
+        checkDate = cal.date(bySettingHour: hour, minute: minute, second: 0, of: checkDate) ?? checkDate
 
         for dayOffset in 0..<14 {
             let testDate = cal.date(byAdding: .day, value: dayOffset, to: checkDate)!
@@ -88,9 +88,9 @@ struct Alarm: Identifiable, Codable, Equatable {
 }
 
 enum MathDifficulty: String, Codable, CaseIterable {
-    case easy = "Fácil"
+    case easy = "Facil"
     case medium = "Media"
-    case hard = "Difícil"
+    case hard = "Dificil"
 
     var level: Int {
         switch self {

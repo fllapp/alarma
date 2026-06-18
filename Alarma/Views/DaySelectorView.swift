@@ -3,14 +3,18 @@ import SwiftUI
 struct DaySelectorView: View {
     @Binding var days: Set<Int>
 
-    private let dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
+    private let dayNames = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
     private let dayNumbers = [1, 2, 3, 4, 5, 6, 7]
 
     var body: some View {
         HStack(spacing: 6) {
             ForEach(Array(zip(dayNames, dayNumbers)), id: \.1) { name, num in
                 Button {
-                    toggleDay(num)
+                    if days.contains(num) {
+                        days.remove(num)
+                    } else {
+                        days.insert(num)
+                    }
                 } label: {
                     Text(name)
                         .font(.system(size: 13, weight: .medium))
@@ -24,13 +28,5 @@ struct DaySelectorView: View {
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 4)
-    }
-
-    private func toggleDay(_ day: Int) {
-        if days.contains(day) {
-            days.remove(day)
-        } else {
-            days.insert(day)
-        }
     }
 }

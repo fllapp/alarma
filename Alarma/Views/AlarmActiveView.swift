@@ -8,13 +8,12 @@ struct AlarmActiveView: View {
     @State private var userAnswer = ""
     @State private var showError = false
     @State private var problem: MathProblem?
-    @State private var pulseScale: CGFloat = 1.0
+    @State private var pulseScale = 1.0
 
     var body: some View {
         ZStack {
-            // Fondo dinámico
             Color.black.ignoresSafeArea()
-            
+
             if isUltimatum {
                 Circle()
                     .fill(AppColors.accentRed.opacity(0.2))
@@ -22,7 +21,7 @@ struct AlarmActiveView: View {
                     .frame(width: 400, height: 400)
                     .blur(radius: 50)
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 1).repeatForever()) {
+                        withAnimation(Animation.easeInOut(duration: 1).repeatForever()) {
                             pulseScale = 1.5
                         }
                     }
@@ -33,7 +32,7 @@ struct AlarmActiveView: View {
                     HStack(spacing: 12) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundColor(AppColors.accentRed)
-                        Text("SISTEMA DE ULTIMÁTUM")
+                        Text("SISTEMA DE ULTIMATUM")
                             .font(.title3.bold())
                             .foregroundColor(AppColors.accentRed)
                     }
@@ -44,7 +43,7 @@ struct AlarmActiveView: View {
                     Text(alarm.title)
                         .font(.title2)
                         .foregroundColor(AppColors.textSecondary)
-                    
+
                     Text(alarm.timeString)
                         .font(AppFonts.timeFont(size: 80))
                         .foregroundColor(.white)
@@ -55,7 +54,7 @@ struct AlarmActiveView: View {
 
                 if let problem = problem {
                     VStack(spacing: 24) {
-                        Text("Cálculo de Seguridad")
+                        Text("Calculo de Seguridad")
                             .font(.headline)
                             .foregroundColor(AppColors.textSecondary)
 
@@ -97,10 +96,9 @@ struct AlarmActiveView: View {
                         }
 
                         if showError {
-                            Text("❌ Respuesta incorrecta")
+                            Text("Respuesta incorrecta")
                                 .foregroundColor(AppColors.accentRed)
                                 .font(.subheadline.bold())
-                                .transition(.opacity)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -134,7 +132,7 @@ struct AlarmActiveView: View {
 
     private func submitAnswer() {
         guard let answer = Int(userAnswer) else {
-            withAnimation { showError = true }
+            showError = true
             return
         }
         let correct = alarmManager.checkMathAnswer(answer)
@@ -142,18 +140,8 @@ struct AlarmActiveView: View {
             userAnswer = ""
             showError = false
         } else {
-            withAnimation { showError = true }
+            showError = true
             userAnswer = ""
         }
-    }
-}
-
-struct MathChallengeView: View {
-    @EnvironmentObject var alarmManager: AlarmManager
-    let alarm: Alarm
-
-    var body: some View {
-        AlarmActiveView(alarm: alarm, isUltimatum: false)
-            .environmentObject(alarmManager)
     }
 }

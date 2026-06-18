@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6001"
+               BlueprintIdentifier = "A60001"
                BuildableName = "Alarma.app"
                BlueprintName = "Alarma"
                ReferencedContainer = "container:Alarma.xcodeproj">
@@ -43,7 +43,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6001"
+            BlueprintIdentifier = "A60001"
             BuildableName = "Alarma.app"
             BlueprintName = "Alarma"
             ReferencedContainer = "container:Alarma.xcodeproj">
@@ -60,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6001"
+            BlueprintIdentifier = "A60001"
             BuildableName = "Alarma.app"
             BlueprintName = "Alarma"
             ReferencedContainer = "container:Alarma.xcodeproj">

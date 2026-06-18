@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AppColors {
     static let background = Color.black
-    static let cardBackground = Color(white: 0.12, alpha: 1.0)
+    static let cardBackground = Color(white: 0.12)
     static let accentBlue = Color.blue
     static let accentOrange = Color.orange
     static let accentRed = Color.red
@@ -11,7 +11,7 @@ struct AppColors {
 }
 
 struct AppFonts {
-    static func timeFont(size: CGFloat) -> Font {
+    static func timeFont(size: Double) -> Font {
         .system(size: size, weight: .light, design: .monospaced)
     }
 }

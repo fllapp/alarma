@@ -4,7 +4,6 @@ import UIKit
 
 final class AudioService {
     static let shared = AudioService()
-    private var audioPlayer: AVAudioPlayer?
     private var vibrationTimer: Timer?
 
     private init() {}
@@ -21,7 +20,6 @@ final class AudioService {
 
     func playSound(_ soundName: String) {
         stopAll()
-
         if let sound = AlarmSound.allSounds.first(where: { $0.id == soundName }) {
             AudioServicesPlaySystemSound(sound.systemSoundID)
             AudioServicesPlaySystemSoundWithCompletion(sound.systemSoundID) { [weak self] in
@@ -32,16 +30,9 @@ final class AudioService {
 
     func playUltimatumSound(_ soundName: String) {
         stopAll()
-
-        let systemSoundID: UInt32
-        if let sound = AlarmSound.allSounds.first(where: { $0.id == soundName }) {
-            systemSoundID = sound.systemSoundID
-        } else {
-            systemSoundID = 1007
-        }
-
-        AudioServicesPlaySystemSound(systemSoundID)
-        AudioServicesPlaySystemSoundWithCompletion(systemSoundID) { [weak self] in
+        let soundID: UInt32 = AlarmSound.allSounds.first(where: { $0.id == soundName })?.systemSoundID ?? 1007
+        AudioServicesPlaySystemSound(soundID)
+        AudioServicesPlaySystemSoundWithCompletion(soundID) { [weak self] in
             self?.playUltimatumSound(soundName)
         }
 
@@ -51,8 +42,6 @@ final class AudioService {
     }
 
     func stopAll() {
-        audioPlayer?.stop()
-        audioPlayer = nil
         vibrationTimer?.invalidate()
         vibrationTimer = nil
     }

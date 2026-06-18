@@ -1,4 +1,3 @@
-import Foundation
 import SwiftUI
 import UIKit
 import AVFoundation
@@ -17,7 +16,7 @@ final class AlarmManager: ObservableObject {
 
     private let notificationService = NotificationService.shared
     private let audioService = AudioService.shared
-    private var alarmTimers: [UUID: Timer] = [:]
+    private var backgroundTimer: Timer?
 
     private init() {
         loadAlarms()
@@ -34,8 +33,6 @@ final class AlarmManager: ObservableObject {
         audioService.setupAudioSession()
     }
 
-    // MARK: - CRUD
-
     func addAlarm(_ alarm: Alarm) {
         alarms.append(alarm)
         alarms.sort { $0.createdAt < $1.createdAt }
@@ -51,8 +48,6 @@ final class AlarmManager: ObservableObject {
     func deleteAlarm(_ alarm: Alarm) {
         alarms.removeAll { $0.id == alarm.id }
         notificationService.cancelAlarm(alarm)
-        alarmTimers[alarm.id]?.invalidate()
-        alarmTimers.removeValue(forKey: alarm.id)
     }
 
     func toggleAlarm(_ alarm: Alarm) {
@@ -67,15 +62,13 @@ final class AlarmManager: ObservableObject {
         updateAlarm(updated)
     }
 
-    // MARK: - Alarm Firing
-
     func triggerAlarm(_ alarm: Alarm) {
         DispatchQueue.main.async {
             if alarm.skipNext {
                 var updated = alarm
                 updated.skipNext = false
                 self.updateAlarm(updated)
-                self.scheduleNextAlarm(alarm)
+                self.notificationService.scheduleAlarm(alarm)
                 return
             }
 
@@ -96,12 +89,6 @@ final class AlarmManager: ObservableObject {
             self.audioService.playSound(alarm.soundName)
         }
     }
-
-    func triggerAlarmView(_ alarm: Alarm) {
-        triggerAlarm(alarm)
-    }
-
-    // MARK: - Dismiss & Snooze
 
     func dismissAlarm() {
         guard let alarm = activeAlarm else { return }
@@ -144,7 +131,6 @@ final class AlarmManager: ObservableObject {
         guard let problem = currentMathProblem else { return false }
         let correct = MathService.shared.checkAnswer(problem, userAnswer: answer)
         if correct {
-            var updated = activeAlarm
             if isUltimatum {
                 snoozeCount[activeAlarm?.id ?? UUID()] = 0
             }
@@ -153,10 +139,8 @@ final class AlarmManager: ObservableObject {
         return correct
     }
 
-    // MARK: - Background
-
     private func startBackgroundTimer() {
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+        backgroundTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
             self?.checkPendingAlarms()
         }
     }
@@ -176,10 +160,6 @@ final class AlarmManager: ObservableObject {
                 }
             }
         }
-    }
-
-    private func scheduleNextAlarm(_ alarm: Alarm) {
-        notificationService.scheduleAlarm(alarm)
     }
 
     private func loadAlarms() {

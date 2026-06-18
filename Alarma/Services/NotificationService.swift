@@ -20,16 +20,14 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
 
     func scheduleAlarm(_ alarm: Alarm, isUltimatum: Bool = false, isSnooze: Bool = false) {
         cancelAlarm(alarm)
-
         guard alarm.isEnabled else { return }
         if alarm.skipNext && !isSnooze { return }
-
         guard let fireDate = alarm.nextFireDate else { return }
-        let soundName = isUltimatum ? alarm.ultimatumSoundName : alarm.soundName
 
+        let soundName = isUltimatum ? alarm.ultimatumSoundName : alarm.soundName
         let content = UNMutableNotificationContent()
         content.title = alarm.title
-        content.body = isUltimatum ? "¡ÚLTIMA ALARMA! — Resuelve el problema matemático" : "Resuelve el problema para desactivar"
+        content.body = "Resuelve el problema para desactivar"
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(soundName).caf"))
         content.categoryIdentifier = "ALARM_CATEGORY"
         content.userInfo = [
@@ -38,9 +36,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             "snooze_minutes": alarm.snoozeMinutes,
             "max_snoozes": alarm.maxSnoozes,
             "has_ultimatum": alarm.hasUltimatum,
-            "is_ultimatum": isUltimatum,
             "ultimatum_sound": alarm.ultimatumSoundName,
-            "is_snooze": isSnooze,
         ]
 
         let triggerComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
@@ -66,12 +62,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         content.categoryIdentifier = "ALARM_CATEGORY"
         content.userInfo = [
             "alarm_id": alarm.id.uuidString,
-            "math_difficulty": alarm.mathDifficulty.rawValue,
-            "snooze_minutes": alarm.snoozeMinutes,
-            "max_snoozes": alarm.maxSnoozes,
-            "has_ultimatum": alarm.hasUltimatum,
             "is_snooze": true,
-            "snooze_count": 0,
         ]
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(snoozeMinutes * 60), repeats: false)
@@ -95,27 +86,6 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         ])
     }
 
-    func cancelAll() {
-        center.removeAllPendingNotificationRequests()
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.sound, .banner, .list])
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        if let alarmID = userInfo["alarm_id"] as? String,
-           let alarm = AlarmManager.shared.alarms.first(where: { $0.id.uuidString == alarmID }) {
-            if response.actionIdentifier == "SNOOZE_ACTION" {
-                AlarmManager.shared.snoozeAlarm(alarm)
-            } else {
-                AlarmManager.shared.triggerAlarmView(alarm)
-            }
-        }
-        completionHandler()
-    }
-
     func setupNotificationCategories() {
         let snoozeAction = UNNotificationAction(
             identifier: "SNOOZE_ACTION",
@@ -129,5 +99,22 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
             options: []
         )
         center.setNotificationCategories([category])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .banner, .list])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        if let alarmID = userInfo["alarm_id"] as? String,
+           let alarm = AlarmManager.shared.alarms.first(where: { $0.id.uuidString == alarmID }) {
+            if response.actionIdentifier == "SNOOZE_ACTION" {
+                AlarmManager.shared.snoozeAlarm(alarm)
+            } else {
+                AlarmManager.shared.triggerAlarm(alarm)
+            }
+        }
+        completionHandler()
     }
 }

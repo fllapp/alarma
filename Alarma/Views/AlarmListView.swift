@@ -13,17 +13,13 @@ struct AlarmListView: View {
                         Image(systemName: "alarm")
                             .font(.system(size: 80))
                             .foregroundColor(AppColors.textSecondary.opacity(0.3))
-                            .symbolEffect(.bounce, value: 1)
-                        
                         VStack(spacing: 8) {
                             Text("Sin alarmas")
                                 .font(.title2.bold())
                                 .foregroundColor(AppColors.textSecondary)
-                            Text("Crea tu primera alarma para empezar a despertar")
+                            Text("Crea tu primera alarma")
                                 .font(.subheadline)
                                 .foregroundColor(AppColors.textSecondary.opacity(0.6))
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 40)
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -59,7 +55,6 @@ struct AlarmListView: View {
             .listStyle(.plain)
             .background(AppColors.background)
             .navigationTitle("Alarmas")
-
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -93,8 +88,7 @@ struct AlarmRowView: View {
                     Text(alarm.timeString)
                         .font(AppFonts.timeFont(size: 42))
                         .foregroundColor(alarm.isEnabled ? .white : .gray)
-                        .shadow(color: alarm.isEnabled ? .blue.opacity(0.3) : .clear, radius: 10)
-                    
+
                     if alarm.skipNext {
                         Text("SALTAR")
                             .font(.system(size: 10, weight: .bold))
@@ -105,14 +99,14 @@ struct AlarmRowView: View {
                             .cornerRadius(6)
                     }
                 }
-                
+
                 HStack {
                     Text(alarm.title)
                         .font(.subheadline.bold())
                         .foregroundColor(alarm.isEnabled ? .white.opacity(0.9) : .gray)
-                    
+
                     if !alarm.daysOfWeek.isEmpty {
-                        Text("• \(alarm.dayNames)")
+                        Text("* \(alarm.dayNames)")
                             .font(.caption)
                             .foregroundColor(alarm.isEnabled ? .gray : .gray.opacity(0.5))
                     }
@@ -144,13 +138,13 @@ struct AlarmRowView: View {
 
 struct CustomToggle: View {
     @Binding var isOn: Bool
-    
+
     var body: some View {
         ZStack {
             Capsule()
                 .fill(isOn ? AppColors.accentBlue : Color.gray.opacity(0.4))
                 .frame(width: 52, height: 30)
-            
+
             Circle()
                 .fill(Color.white)
                 .frame(width: 26, height: 26)
@@ -158,7 +152,6 @@ struct CustomToggle: View {
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isOn)
         }
         .onTapGesture {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
             isOn.toggle()
         }
     }

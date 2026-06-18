@@ -1,0 +1,8 @@
+*.exe
+*.ipa
+*.dSYM.zip
+*.dSYM
+DerivedData/
+build/
+dist/
+.DS_Store

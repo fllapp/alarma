@@ -39,13 +39,75 @@ struct AlarmDetailView: View {
     var body: some View {
         NavigationView {
             Form {
-                timeSection
-                daysSection
-                soundSection
-                mathSection
-                snoozeSection
-                ultimatumSection
-                skipSection
+                Section(header: Label("Hora", systemImage: "clock")) {
+                    HStack {
+                        Spacer()
+                        DatePicker(
+                            "",
+                            selection: Binding(
+                                get: {
+                                    Calendar.current.date(from: DateComponents(hour: hour, minute: minute)) ?? Date()
+                                },
+                                set: { date in
+                                    let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+                                    hour = comps.hour ?? 7
+                                    minute = comps.minute ?? 0
+                                }
+                            ),
+                            displayedComponents: .hourAndMinute
+                        )
+                        .datePickerStyle(.wheel)
+                        .labelsHidden()
+                        Spacer()
+                    }
+                }
+
+                Section(header: Label("Repetir", systemImage: "calendar")) {
+                    DaySelectorView(days: $daysOfWeek)
+                }
+
+                Section(header: Label("Sonido", systemImage: "music.note")) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(AlarmSound.allSounds.first(where: { $0.id == selectedSound })?.name ?? "Seleccionar")
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
+                        Button("Cambiar") { showSoundPicker = true }
+                            .font(.subheadline)
+                    }
+                }
+
+                Section(header: Label("Seguridad matematica", systemImage: "function")) {
+                    Picker("Dificultad", selection: $mathDifficulty) {
+                        ForEach(MathDifficulty.allCases, id: \.self) { diff in
+                            Text(diff.rawValue).tag(diff)
+                        }
+                    }
+                }
+
+                Section(header: Label("Posponer", systemImage: "pause.circle")) {
+                    Stepper("Posponer cada \(snoozeMinutes) min", value: $snoozeMinutes, in: 1...30)
+                    Stepper("Max \(maxSnoozes) veces", value: $maxSnoozes, in: 0...10)
+                }
+
+                Section(header: Label("Ultimatum", systemImage: "exclamationmark.triangle")) {
+                    Toggle("Alarma de ultimatum", isOn: $hasUltimatum)
+                    if hasUltimatum {
+                        HStack {
+                            Text("Sonido final")
+                            Spacer()
+                            Text(AlarmSound.allSounds.first(where: { $0.id == ultimatumSound })?.name ?? "Seleccionar")
+                                .foregroundColor(.secondary)
+                            Button("Cambiar") { showUltimatumSoundPicker = true }
+                                .font(.subheadline)
+                        }
+                    }
+                }
+
+                Section(header: Label("Saltar", systemImage: "forward")) {
+                    Toggle("Saltar proxima alarma", isOn: $skipNext)
+                }
             }
             .navigationTitle(isEditing ? "Editar Alarma" : "Nueva Alarma")
             .navigationBarTitleDisplayMode(.inline)
@@ -64,112 +126,6 @@ struct AlarmDetailView: View {
             .sheet(isPresented: $showUltimatumSoundPicker) {
                 SoundPickerView(selectedSound: $ultimatumSound)
             }
-        }
-    }
-
-    private var timeSection: some View {
-        Section {
-            HStack {
-                Spacer()
-                DatePicker(
-                    "",
-                    selection: Binding(
-                        get: {
-                            Calendar.current.date(from: DateComponents(hour: hour, minute: minute)) ?? Date()
-                        },
-                        set: { date in
-                            let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-                            hour = comps.hour ?? 7
-                            minute = comps.minute ?? 0
-                        }
-                    ),
-                    displayedComponents: .hourAndMinute
-                )
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-                Spacer()
-            }
-        } header: {
-            Label("Hora", systemImage: "clock")
-        }
-    }
-
-    private var daysSection: some View {
-        Section {
-            DaySelectorView(days: $daysOfWeek)
-        } header: {
-            Label("Repetir", systemImage: "calendar")
-        }
-    }
-
-    private var soundSection: some View {
-        Section {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(AlarmSound.allSounds.first(where: { $0.id == selectedSound })?.name ?? "Seleccionar")
-                        .foregroundColor(.white)
-                }
-                Spacer()
-                Button("Cambiar") { showSoundPicker = true }
-                    .font(.subheadline)
-            }
-        } header: {
-            Label("Sonido", systemImage: "music.note")
-        }
-    }
-
-    private var mathSection: some View {
-        Section {
-            Picker("Dificultad", selection: $mathDifficulty) {
-                ForEach(MathDifficulty.allCases, id: \.self) { diff in
-                    Text(diff.rawValue).tag(diff)
-                }
-            }
-        } header: {
-            Label("Seguridad matemática", systemImage: "function")
-        } footer: {
-            Text("Deberás resolver un problema matemático para desactivar la alarma")
-        }
-    }
-
-    private var snoozeSection: some View {
-        Section {
-            Stepper("Posponer cada \(snoozeMinutes) min", value: $snoozeMinutes, in: 1...30)
-            Stepper("Máx \(maxSnoozes) veces", value: $maxSnoozes, in: 0...10)
-        } header: {
-            Label("Posponer", systemImage: "pause.circle")
-        }
-    }
-
-    private var ultimatumSection: some View {
-        Section {
-            Toggle("Alarma de ultimátum", isOn: $hasUltimatum)
-            if hasUltimatum {
-                HStack {
-                    Text("Sonido final")
-                    Spacer()
-                    Text(AlarmSound.allSounds.first(where: { $0.id == ultimatumSound })?.name ?? "Seleccionar")
-                        .foregroundColor(.secondary)
-                    Button("Cambiar") { showUltimatumSoundPicker = true }
-                        .font(.subheadline)
-                }
-            }
-        } header: {
-            Label("Ultimátum", systemImage: "exclamationmark.triangle")
-        } footer: {
-            if hasUltimatum {
-                Text("Cuando se alcance el límite de posponer, sonará esta alarma final")
-            }
-        }
-    }
-
-    private var skipSection: some View {
-        Section {
-            Toggle("Saltar próxima alarma", isOn: $skipNext)
-        } header: {
-            Label("Saltar", systemImage: "forward")
-        } footer: {
-            Text("La próxima vez que suene se saltará y luego volverá a la normalidad")
         }
     }
 
