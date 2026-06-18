@@ -67,33 +67,25 @@ struct AlarmActiveView: View {
                 Spacer()
 
                 if alarm.mathEnabled {
-                    let problem: MathProblem = {
-                        if let p = alarmManager.currentMathProblem { return p }
-                        let p = MathService.shared.generateProblem(difficulty: alarm.mathDifficulty)
-                        alarmManager.currentMathProblem = p
-                        return p
-                    }()
-                    VStack(spacing: 24) {
-                        Text("Calculo de Seguridad")
-                            .font(.headline)
-                            .foregroundColor(AppColors.textSecondary)
+                    if let problem = alarmManager.currentMathProblem {
+                        VStack(spacing: 24) {
+                            Text("Calculo de Seguridad")
+                                .font(.headline)
+                                .foregroundColor(AppColors.textSecondary)
 
-                        Text(problem.question)
-                            .font(.system(size: 40, weight: .light, design: .monospaced))
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 30)
-                            .padding(.horizontal, 20)
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(AppColors.cardBackground)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                                    )
-                            )
+                            Text(problem.question)
+                                .font(AppFonts.timeFont(size: 48))
+                                .foregroundColor(.white)
+                                .padding(.vertical, 30)
+                                .padding(.horizontal, 40)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .fill(AppColors.cardBackground)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                                        )
+                                )
 
                             HStack(spacing: 20) {
                                 TextField("?", text: $userAnswer)

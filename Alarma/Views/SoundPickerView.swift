@@ -18,32 +18,22 @@ struct SoundPickerView: View {
                         .foregroundColor(AppColors.accentBlue)
                     ) {
                         ForEach(AlarmSound.sounds(for: category)) { sound in
-                            HStack {
-                                Button {
-                                    selectedSound = sound.id
-                                } label: {
-                                    HStack {
-                                        Image(systemName: selectedSound == sound.id ? "checkmark.circle.fill" : "circle")
-                                            .foregroundColor(selectedSound == sound.id ? .blue : .gray)
-                                        Text(sound.name)
-                                            .foregroundColor(.white)
-                                        Spacer()
-                                    }
+                            Button {
+                                selectedSound = sound.id
+                                AudioServicesPlaySystemSound(sound.systemSoundID)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    dismiss()
                                 }
-
-                                Button {
-                                    AudioService.shared.playPreview(sound.systemSoundID)
-                                } label: {
+                            } label: {
+                                HStack {
+                                    Image(systemName: selectedSound == sound.id ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(selectedSound == sound.id ? .blue : .gray)
+                                    Text(sound.name)
+                                        .foregroundColor(.white)
+                                    Spacer()
                                     Image(systemName: "play.circle")
-                                        .font(.title3)
                                         .foregroundColor(.gray)
                                 }
-                                .buttonStyle(.borderless)
-
-                                Text(sound.toneConfig.pattern.rawValue.prefix(4))
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                                    .frame(width: 32)
                             }
                         }
                     }

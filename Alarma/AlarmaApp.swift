@@ -20,9 +20,4 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         AlarmManager.shared.setupAudioSession()
         return true
     }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        AlarmManager.shared.setupAudioSession()
-        AlarmManager.shared.checkPendingAlarms()
-    }
 }

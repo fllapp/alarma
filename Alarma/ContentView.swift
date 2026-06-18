@@ -1,10 +1,7 @@
 import SwiftUI
-import UserNotifications
 
 struct ContentView: View {
     @EnvironmentObject var alarmManager: AlarmManager
-    @State private var showPermissionAlert = false
-    @State private var permissionDenied = false
 
     var body: some View {
         ZStack {
@@ -17,49 +14,7 @@ struct ContentView: View {
                     .transition(.move(edge: .bottom))
                     .zIndex(100)
             }
-
-            if permissionDenied {
-                VStack {
-                    HStack(spacing: 12) {
-                        Image(systemName: "bell.slash.fill")
-                            .foregroundColor(.white)
-                        Text("Permisos de notificacion desactivados")
-                            .font(.subheadline.bold())
-                            .foregroundColor(.white)
-                        Spacer()
-                        Button("Abrir Ajustes") {
-                            if let url = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(url)
-                            }
-                        }
-                        .font(.caption.bold())
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(8)
-                        .foregroundColor(.white)
-                    }
-                    .padding()
-                    .background(AppColors.accentRed.opacity(0.9))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    .padding(.top, 8)
-                    Spacer()
-                }
-                .zIndex(50)
-            }
         }
         .animation(.easeInOut(duration: 0.3), value: alarmManager.showAlarmView)
-        .onAppear {
-            checkNotificationPermission()
-        }
-    }
-
-    private func checkNotificationPermission() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                permissionDenied = settings.authorizationStatus == .denied
-            }
-        }
     }
 }
