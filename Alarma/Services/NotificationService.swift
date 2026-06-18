@@ -28,7 +28,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         let content = UNMutableNotificationContent()
         content.title = alarm.title
         content.body = "Resuelve el problema para desactivar"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(soundName).caf"))
+        content.sound = UNNotificationSound.default
         content.categoryIdentifier = "ALARM_CATEGORY"
         content.userInfo = [
             "alarm_id": alarm.id.uuidString,
@@ -58,7 +58,7 @@ final class NotificationService: NSObject, UNUserNotificationCenterDelegate {
         let content = UNMutableNotificationContent()
         content.title = "\(alarm.title) (pospuesta)"
         content.body = "Resuelve el problema para desactivar"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "\(alarm.soundName).caf"))
+        content.sound = UNNotificationSound.default
         content.categoryIdentifier = "ALARM_CATEGORY"
         content.userInfo = [
             "alarm_id": alarm.id.uuidString,

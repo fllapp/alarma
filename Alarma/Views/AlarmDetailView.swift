@@ -14,8 +14,11 @@ struct AlarmDetailView: View {
     @State private var maxSnoozes: Int
     @State private var hasUltimatum: Bool
     @State private var ultimatumSound: String
+    @State private var mathEnabled: Bool
     @State private var mathDifficulty: MathDifficulty
     @State private var skipNext: Bool
+    @State private var snoozeStyle: SnoozeStyle
+    @State private var gradualWakeUpDuration: Int
     @State private var showSoundPicker = false
     @State private var showUltimatumSoundPicker = false
 
@@ -32,8 +35,11 @@ struct AlarmDetailView: View {
         _maxSnoozes = State(initialValue: alarm?.maxSnoozes ?? 3)
         _hasUltimatum = State(initialValue: alarm?.hasUltimatum ?? true)
         _ultimatumSound = State(initialValue: alarm?.ultimatumSoundName ?? "alarm")
+        _mathEnabled = State(initialValue: alarm?.mathEnabled ?? true)
         _mathDifficulty = State(initialValue: alarm?.mathDifficulty ?? .medium)
         _skipNext = State(initialValue: alarm?.skipNext ?? false)
+        _snoozeStyle = State(initialValue: alarm?.snoozeStyle ?? .button)
+        _gradualWakeUpDuration = State(initialValue: alarm?.gradualWakeUpDuration ?? 0)
     }
 
     var body: some View {
@@ -79,15 +85,23 @@ struct AlarmDetailView: View {
                 }
 
                 Section(header: Label("Seguridad matematica", systemImage: "function")) {
-                    Picker("Dificultad", selection: $mathDifficulty) {
-                        ForEach(MathDifficulty.allCases, id: \.self) { diff in
-                            Text(diff.rawValue).tag(diff)
+                    Toggle("Activado", isOn: $mathEnabled)
+                    if mathEnabled {
+                        Picker("Dificultad", selection: $mathDifficulty) {
+                            ForEach(MathDifficulty.allCases, id: \.self) { diff in
+                                Text(diff.rawValue).tag(diff)
+                            }
                         }
                     }
                 }
 
                 Section(header: Label("Posponer", systemImage: "pause.circle")) {
-                    Stepper("Posponer cada \(snoozeMinutes) min", value: $snoozeMinutes, in: 1...30)
+                    Picker("Estilo", selection: $snoozeStyle) {
+                        ForEach(SnoozeStyle.allCases, id: \.self) { style in
+                            Label(style.rawValue, systemImage: style.icon).tag(style)
+                        }
+                    }
+                    Stepper("Intervalo \(snoozeMinutes) min", value: $snoozeMinutes, in: 1...30)
                     Stepper("Max \(maxSnoozes) veces", value: $maxSnoozes, in: 0...10)
                 }
 
@@ -103,6 +117,13 @@ struct AlarmDetailView: View {
                                 .font(.subheadline)
                         }
                     }
+                }
+
+                Section(header: Label("Despertar gradual", systemImage: "speaker.wave.2")) {
+                    Stepper("Duracion: \(gradualWakeUpDuration) min", value: $gradualWakeUpDuration, in: 0...30)
+                    Text("El volumen aumentara progresivamente durante la duracion configurada.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
 
                 Section(header: Label("Saltar", systemImage: "forward")) {
@@ -142,8 +163,11 @@ struct AlarmDetailView: View {
             maxSnoozes: maxSnoozes,
             hasUltimatum: hasUltimatum,
             ultimatumSoundName: ultimatumSound,
+            mathEnabled: mathEnabled,
             mathDifficulty: mathDifficulty,
             skipNext: skipNext,
+            snoozeStyle: snoozeStyle,
+            gradualWakeUpDuration: gradualWakeUpDuration,
             createdAt: editAlarm?.createdAt ?? Date()
         )
         if isEditing {

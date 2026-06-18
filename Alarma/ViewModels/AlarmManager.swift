@@ -73,7 +73,9 @@ final class AlarmManager: ObservableObject {
             }
 
             self.isUltimatum = false
-            self.currentMathProblem = MathService.shared.generateProblem(difficulty: alarm.mathDifficulty)
+            if alarm.mathEnabled {
+                self.currentMathProblem = MathService.shared.generateProblem(difficulty: alarm.mathDifficulty)
+            }
             self.activeAlarm = alarm
             self.showAlarmView = true
 
@@ -86,7 +88,11 @@ final class AlarmManager: ObservableObject {
                 }
             }
 
-            self.audioService.playSound(alarm.soundName)
+            if alarm.gradualWakeUpDuration > 0 {
+                self.audioService.playSoundGradual(alarm.soundName, durationMinutes: alarm.gradualWakeUpDuration)
+            } else {
+                self.audioService.playSound(alarm.soundName)
+            }
         }
     }
 
@@ -112,7 +118,9 @@ final class AlarmManager: ObservableObject {
         if target.hasUltimatum && count >= target.maxSnoozes {
             activeAlarm = target
             isUltimatum = true
-            currentMathProblem = MathService.shared.generateProblem(difficulty: target.mathDifficulty)
+            if target.mathEnabled {
+                currentMathProblem = MathService.shared.generateProblem(difficulty: target.mathDifficulty)
+            }
             showAlarmView = true
             audioService.playUltimatumSound(target.ultimatumSoundName)
             return

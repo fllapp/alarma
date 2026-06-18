@@ -98,6 +98,18 @@ struct AlarmRowView: View {
                             .background(AppColors.accentOrange.opacity(0.8))
                             .cornerRadius(6)
                     }
+
+                    if alarm.gradualWakeUpDuration > 0 {
+                        Image(systemName: "speaker.wave.2")
+                            .font(.caption)
+                            .foregroundColor(AppColors.accentBlue)
+                    }
+
+                    if alarm.snoozeStyle == .swipe {
+                        Image(systemName: "hand.draw")
+                            .font(.caption)
+                            .foregroundColor(AppColors.accentOrange)
+                    }
                 }
 
                 HStack {
@@ -125,6 +137,30 @@ struct AlarmRowView: View {
             )
 
             Spacer()
+
+            Menu {
+                Button {
+                    alarmManager.toggleSkipNext(alarm)
+                } label: {
+                    Label(
+                        alarm.skipNext ? "No saltar siguiente" : "Saltar siguiente",
+                        systemImage: alarm.skipNext ? "forward.fill" : "forward"
+                    )
+                }
+
+                Divider()
+
+                Button(role: .destructive) {
+                    alarmManager.deleteAlarm(alarm)
+                } label: {
+                    Label("Eliminar", systemImage: "trash")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .font(.title3)
+                    .foregroundColor(.gray)
+                    .padding(8)
+            }
 
             CustomToggle(isOn: Binding(
                 get: { alarm.isEnabled },

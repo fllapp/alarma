@@ -12,8 +12,11 @@ struct Alarm: Identifiable, Codable, Equatable {
     var maxSnoozes: Int
     var hasUltimatum: Bool
     var ultimatumSoundName: String
+    var mathEnabled: Bool
     var mathDifficulty: MathDifficulty
     var skipNext: Bool
+    var snoozeStyle: SnoozeStyle
+    var gradualWakeUpDuration: Int
     var createdAt: Date
 
     init(
@@ -28,8 +31,11 @@ struct Alarm: Identifiable, Codable, Equatable {
         maxSnoozes: Int = 3,
         hasUltimatum: Bool = true,
         ultimatumSoundName: String = "alarm",
+        mathEnabled: Bool = true,
         mathDifficulty: MathDifficulty = .medium,
         skipNext: Bool = false,
+        snoozeStyle: SnoozeStyle = .button,
+        gradualWakeUpDuration: Int = 0,
         createdAt: Date = Date()
     ) {
         self.id = id
@@ -43,8 +49,11 @@ struct Alarm: Identifiable, Codable, Equatable {
         self.maxSnoozes = maxSnoozes
         self.hasUltimatum = hasUltimatum
         self.ultimatumSoundName = ultimatumSoundName
+        self.mathEnabled = mathEnabled
         self.mathDifficulty = mathDifficulty
         self.skipNext = skipNext
+        self.snoozeStyle = snoozeStyle
+        self.gradualWakeUpDuration = gradualWakeUpDuration
         self.createdAt = createdAt
     }
 
@@ -97,6 +106,18 @@ enum MathDifficulty: String, Codable, CaseIterable {
         case .easy: return 1
         case .medium: return 2
         case .hard: return 3
+        }
+    }
+}
+
+enum SnoozeStyle: String, Codable, CaseIterable {
+    case button = "Boton"
+    case swipe = "Deslizar"
+
+    var icon: String {
+        switch self {
+        case .button: return "hand.tap"
+        case .swipe: return "hand.draw"
         }
     }
 }
