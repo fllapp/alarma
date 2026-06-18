@@ -84,35 +84,12 @@ struct AlarmRowView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                HStack(alignment: .firstTextBaseline, spacing: 12) {
-                    Text(alarm.timeString)
-                        .font(AppFonts.timeFont(size: 42))
-                        .foregroundColor(alarm.isEnabled ? .white : .gray)
+                Text(alarm.timeString)
+                    .font(AppFonts.timeFont(size: 42))
+                    .foregroundColor(alarm.isEnabled ? .white : .gray)
+                    .lineLimit(1)
 
-                    if alarm.skipNext {
-                        Text("SALTAR")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(AppColors.accentOrange.opacity(0.8))
-                            .cornerRadius(6)
-                    }
-
-                    if alarm.gradualWakeUpDuration > 0 {
-                        Image(systemName: "speaker.wave.2")
-                            .font(.caption)
-                            .foregroundColor(AppColors.accentBlue)
-                    }
-
-                    if alarm.snoozeStyle == .swipe {
-                        Image(systemName: "hand.draw")
-                            .font(.caption)
-                            .foregroundColor(AppColors.accentOrange)
-                    }
-                }
-
-                HStack {
+                HStack(spacing: 6) {
                     Text(alarm.title)
                         .font(.subheadline.bold())
                         .foregroundColor(alarm.isEnabled ? .white.opacity(0.9) : .gray)
@@ -121,6 +98,28 @@ struct AlarmRowView: View {
                         Text("* \(alarm.dayNames)")
                             .font(.caption)
                             .foregroundColor(alarm.isEnabled ? .gray : .gray.opacity(0.5))
+                    }
+
+                    if alarm.skipNext {
+                        Text("SALTAR")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(AppColors.accentOrange.opacity(0.8))
+                            .cornerRadius(4)
+                    }
+
+                    if alarm.gradualWakeUpDuration > 0 {
+                        Image(systemName: "speaker.wave.2")
+                            .font(.caption2)
+                            .foregroundColor(AppColors.accentBlue)
+                    }
+
+                    if alarm.snoozeStyle == .swipe {
+                        Image(systemName: "hand.draw")
+                            .font(.caption2)
+                            .foregroundColor(AppColors.accentOrange)
                     }
                 }
             }
